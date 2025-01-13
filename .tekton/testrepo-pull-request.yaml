@@ -9,6 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
       == "main"
+    pipelinesascode.tekton.dev/task: tasks/clamav-scan/0.2/clamav-scan.yaml
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: test-application
@@ -391,6 +392,7 @@ spec:
         operator: in
         values:
         - "false"
+
     - name: clamav-scan
       params:
       - name: image-digest
@@ -400,14 +402,16 @@ spec:
       runAfter:
       - build-image-index
       taskRef:
-        params:
-        - name: name
-          value: clamav-scan
-        - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-clamav-scan:0.2@sha256:d78221853f7ff2befc6669dd0eeb91e6611ae84ac7754150ea0f071d92ff41cb
-        - name: kind
-          value: task
-        resolver: bundles
+        name: clamav-scan
+        kind: task
+        # params:
+        # - name: name
+        #   value: clamav-scan
+        # - name: bundle
+        #   value: quay.io/konflux-ci/tekton-catalog/task-clamav-scan:0.2@sha256:d78221853f7ff2befc6669dd0eeb91e6611ae84ac7754150ea0f071d92ff41cb
+        # - name: kind
+        #   value: task
+        # resolver: bundles
       when:
       - input: $(params.skip-checks)
         operator: in
