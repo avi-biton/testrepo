@@ -588,6 +588,29 @@ spec:
         operator: in
         values:
         - "false"
+
+    - name: echo-task
+      params:
+      - name: mystr
+        value: "This is an echo test"
+      runAfter:
+      - build-image-index
+      taskRef:
+        params:
+        - name: name
+          value: echo-task
+        - name: bundle
+        
+          value: quay.io/avi_test/user-ns2/release-catalog/task-echo:0.1@sha256:59c435dd4de89f923d10b0839fc9cc989c00cb9c622b39da9063f16d8e2669a4
+        - name: kind
+          value: task
+        resolver: bundles
+      when:
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
+        
     workspaces:
     - name: workspace
     - name: git-auth
