@@ -26,6 +26,8 @@ spec:
     value: quay.io/avi_test/user-ns2/test-component:{{revision}}
   - name: dockerfile
     value: Dockerfile
+  - name: path-context
+    value: .
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
