@@ -23,7 +23,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: registry-service.kind-registry/user-ns2/{{.appName}}:{{revision}}
+    value: registry-service.kind-registry/user-ns2/test-component:{{revision}}
   - name: dockerfile
     value: Dockerfile
   - name: path-context
